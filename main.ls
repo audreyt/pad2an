@@ -10,6 +10,9 @@ $('p, ul, h1').each ->
   return if $(@).has-class \comment
   {p, ul, h1}[@name].call $(@)
 
+if speech.length and speaker
+  debate-section.push({ speech: [{_attr: { by: "\##speaker" }}].concat(speech)} )
+
 function h1
   t = @text! - /\s*$/
   debate-section.push heading: t
