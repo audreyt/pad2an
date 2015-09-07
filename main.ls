@@ -11,7 +11,8 @@ $('p, ul, h1').each ->
   {p, ul, h1}[@name].call $(@)
 
 function h1
-  debate-section.push @text!
+  t = @text! - /\s*$/
+  debate-section.push heading: t
 
 function p
   t = @text! - /\s*$/
@@ -19,10 +20,16 @@ function p
     debate-section.push({ speech: [{_attr: { by: "\##speaker" }}].concat(speech)} )
     speech := []
   if t is /^[(（].*[）)]$/
-    debate-section.push({ narrative: [{ p: t }] })
+    debate-section.push({ narrative: [{ p: [{ i: t }] }] })
     return
   else if t is /[:：]$/
     speaker := t.slice(0, -1)
+  else if @find 'a[href]' .length
+    anchors = []
+    debate-section.push({ narrative: [{ p: anchors }] })
+    anchors.push $(@).clone!remove('a')text! - /https?\:\/\/\S+/
+    <- @find 'a[href]' .each
+    anchors.push { a: [{ _attr: { href: $(@).attr('href') } }, $(@).text! or $(@).attr('href') ] }
 
 function ul
   <- @find 'li:not(.comment)' .each
