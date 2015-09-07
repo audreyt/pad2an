@@ -1,0 +1,42 @@
+{
+  "name": "pad2an",
+  "version": "0.0.1",
+  "description": "Converts Hackpad-compatible HTML to Akoma Ntoso.",
+  "main": "lib/index.js",
+  "scripts": {
+    "watch": "npm run build -- --watch --source-maps inline",
+    "build": "babel src --out-dir lib --stage $npm_package_config_stage --optional runtime",
+    "prepublish": "NODE_ENV=production npm run build",
+    "test": "mocha --require ./config/mocha-babel test/unit/*.js",
+    "travis": "istanbul cover _mocha --report lcovonly -- --require ./config/mocha-babel test/unit/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "jscs": "jscs . -x"
+  },
+  "config": {
+    "stage": "1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/audreyt/pad2an"
+  },
+  "author": {
+    "name": "audreyt"
+  },
+  "license": "CC0",
+  "bugs": {
+    "url": "https://github.com/audreyt/pad2an/issues"
+  },
+  "bin": {
+    "pdftojson": "./bin/pad2an.js"
+  },
+  "homepage": "https://github.com/audreyt/pad2an",
+  "dependencies": {
+    "cheerio": "^0.19.0"
+    "xml": "^1.0.0"
+  },
+  "maintainers": [
+    {
+      "name": "audreyt",
+      "email": "audreyt@audreyt.org"
+    }
+  ]
+}
