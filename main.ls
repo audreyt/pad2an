@@ -5,12 +5,15 @@ $ = cheerio.load(html)
 debate-section = []
 speaker = ''
 speech = []
+speakers = {}
 
 $('p, ul, h1').each ->
+  $(@).remove('.comment')
   return if $(@).has-class \comment
   {p, ul, h1}[@name].call $(@)
 
 if speech.length and speaker
+  speakers[speaker] = true
   debate-section.push({ speech: [{_attr: { by: "\##speaker" }}].concat(speech)} )
 
 function h1
@@ -20,6 +23,7 @@ function h1
 function p
   t = @text! - /\s*$/
   if speech.length and speaker
+    speakers[speaker] = true
     debate-section.push({ speech: [{_attr: { by: "\##speaker" }}].concat(speech)} )
     speech := []
   if t is /^[(（].*[）)]$/
@@ -39,9 +43,16 @@ function ul
   t = $(@)text! - /\s*$/
   speech ++= [ { p: t } ]
 
+references = []
+for it in Object.keys(speakers).sort!
+  references.push { TLCPerson: [{ _attr: {
+    href: "/ontology/person/::/#it"
+    id: it
+    showAs: it
+  }}] }
+
 an = { akomaNtoso: [{ debate: [
-  # {meta: [{references: References}]}, // 替TLCPerson 保留
-  # {preface: Preface}, // 替文件名稱保留
+  {meta: [{references}]},
   { debateBody: [{ debate-section }] }
 ]}]}
 console.log(xml(an, '  '))
