@@ -1,8 +1,13 @@
 require! http
 http.createServer(({url}, res) ->
-  console.log(url)
-  url -= /^\/?https?:\/\//
-  unless url is /^(\w+\.)?\bhackpad.com\/ep\/pad\/static\//
+  #console.log url
+  url -= // ^ /? https? : / / //
+  url.=replace // ^
+    ( (?: \w+\. )? hackpad\.com )
+    / (?: [^/]*-- )? ( [^/]+ )
+  $ //, "$1/ep/pad/static/$2"
+  console.log "=> #url"
+  unless url is // ^ (?: \w+\. )?  hackpad.com /ep/pad/static/ //
     res.writeHead 400, 'Content-Type': \text/plain
     res.end "URL must match hackpad.com/ep/pad/static/"
     return
