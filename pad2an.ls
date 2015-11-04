@@ -30,6 +30,8 @@ export function pad2an (html)
     if t is /^[(（].*[）)]$/
       debate-section.push({ narrative: [{ p: [{ i: t }] }] })
       return
+    else if t is /\u00A0{4}/
+      speech ++= [ { p: t - /\u00A0/g - /\s*$/ - /^\s*/ } ]
     else if t is /[:：]$/
       speaker := t.slice(0, -1) - /^\s+/ - /\s+$/
     else if @find 'a[href]' .length
