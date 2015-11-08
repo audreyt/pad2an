@@ -4,7 +4,7 @@ http.createServer(({url}, res) ->
   url -= // ^ /? https? : / / //
   url.=replace // ^
     ( (?: \w+\. )? hackpad\.com )
-    / (?: [^/]*-- )? ( [^/]+ )
+    / (?: [^/]*- )? ( [^/]+ )
   $ //, "$1/ep/pad/static/$2"
   console.log "=> #url"
   unless url is // ^ (?: \w+\. )?  hackpad.com /ep/pad/static/ //
