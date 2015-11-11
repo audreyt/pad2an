@@ -1,6 +1,11 @@
 require! http
+index-html = require('fs').readFileSync('index.html' \utf8)
 http.createServer(({url}, res) ->
   #console.log url
+  if url is '/'
+    res.writeHead 200, 'Content-Type': 'text/html; charset=utf-8'
+    res.end index-html
+    return
   url -= // ^ /? https? : / / //
   url.=replace // ^
     ( (?: \w+\. )? hackpad\.com )
