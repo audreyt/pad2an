@@ -9,8 +9,9 @@ For example, for the original Hackpad URL at `https://hackpad.com/PTD3vnvhMjv` t
 ------
 
 Transcript format:
-> Speaker’s name on its own line ended with a colon.
-> Speech content follows the speaker’s name as indented text, or bullet items.
+> Speaker’s name on its own line, ending with a colon.
+>
+> Speech content follows the speaker’s name as indented text and/or bullet items.
 
 (Parenthesised non-indented lines are nonverbal actions.)
 
