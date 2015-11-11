@@ -3,15 +3,15 @@ require! <[ cheerio xml ]>
 export function pad2an (html)
   $ = cheerio.load(html)
 
-  debate-section = []
+  root-section = debate-section = []
   speaker = ''
   speech = []
   speakers = {}
 
-  $('p, ul, h1').each ->
+  $('p, ul, h1, h2').each ->
     $(@).remove('.comment')
     return if $(@).has-class \comment
-    {p, ul, h1}[@name].call $(@)
+    {p, ul, h1, h2}[@name].call $(@)
 
   if speech.length and speaker
     speakers[speaker] = true
@@ -20,6 +20,16 @@ export function pad2an (html)
   function h1
     t = @text! - /\s*$/
     debate-section.push heading: t
+
+  function h2
+    t = @text! - /\s*$/
+    if speech.length and speaker
+      debate-section.push({ speech: [{_attr: { by: "\##speaker" }}].concat(speech)} )
+      speech := []
+      speaker := null
+    debate-section := []
+    debate-section.push heading: t
+    root-section.push { debate-section }
 
   function p
     t = @text! - /\s*$/
@@ -30,7 +40,7 @@ export function pad2an (html)
     if t is /^[(（].*[）)]$/
       debate-section.push({ narrative: [{ p: [{ i: t }] }] })
       return
-    else if t is /\u00A0{4}/
+    else if t is /\u00A0{2}/
       speech ++= [ { p: t - /\u00A0/g - /\s*$/ - /^\s*/ } ]
     else if t is /[:：]$/
       speaker := t.slice(0, -1) - /^\s+/ - /\s+$/
@@ -56,6 +66,6 @@ export function pad2an (html)
 
   an = { akomaNtoso: [{ debate: [
     {meta: [{references}]},
-    { debateBody: [{ debate-section }] }
+    { debateBody: [{ debate-section: root-section }] }
   ]}]}
   return xml(an, '  ')
