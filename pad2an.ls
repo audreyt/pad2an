@@ -8,6 +8,7 @@ export function pad2an (html)
   speech = []
   speakers = {}
   timestamp = ''
+  # Hard-coded for airbnb until I can figure out race condition
   recording-start = new Date '2015-10-01T19:00:00'
 
   $('p, ul, h1, h2').each ->
