@@ -1,0 +1,1 @@
+web: lsc server.ls
