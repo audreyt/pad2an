@@ -7,8 +7,8 @@ export function pad2an (html)
   speaker = ''
   speech = []
   speakers = {}
-  timestamp = ''
-  recording-start = $("p:contains('\u231B')").text! - /[\u231B]/ - /\s*$/ - /^\s*/
+  speech-timecode = ''
+  video-start-timestamp = $("p:contains('\u231B')").text! - /[\u231B]/ - /\s*$/ - /^\s*/
 
   $('p, ul, h1, h2').each ->
     $(@).remove('.comment')
@@ -38,13 +38,13 @@ export function pad2an (html)
     if speech.length and speaker
       speakers[speaker] = true
       attributes = [{ by: "\##speaker" }]
-      if !!timestamp and !!recording-start
-        speaker-starttime = new Date(new Date(recording-start).getTime! + (timestamp / ':')[0]*60000).toISOString!
-        attributes ++= [{ startTime: speaker-starttime }]
+      if !!speech-timecode and !!video-start-timestamp
+        starttime = new Date(new Date(video-start-timestamp).getTime! + (speech-timecode / ':')[0]*60000).toISOString!
+        attributes ++= [{ startTime: starttime }]
       attributes = Object.assign ...attributes
       debate-section.push({ speech: [{_attr: attributes}].concat(speech)} )
       speech := []
-      timestamp := ''
+      speech-timecode := ''
     if t is /^[(（].*[）)]$/
       debate-section.push({ narrative: [{ p: [{ i: t }] }] })
       return
@@ -58,7 +58,7 @@ export function pad2an (html)
       anchors.push { a: [{ _attr: { href: $(@).attr('href') } }, $(@).text! or $(@).attr('href') ] }
     else if t is /[:：]/
       [first, ...rest] = t / /[:：]/
-      timestamp := rest * ':'
+      speech-timecode := rest * ':'
       speaker := first - /^\s+/ - /\s+$/
 
   function ul
