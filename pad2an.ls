@@ -39,7 +39,12 @@ export function pad2an (html)
       speakers[speaker] = true
       attributes = [{ by: "\##speaker" }]
       if !!speech-timecode and !!video-start-timestamp
-        starttime = new Date(new Date(video-start-timestamp).getTime! + (speech-timecode / ':')[0]*60000).toISOString!
+        timecode-parts = speech-timecode / ':'
+        second-offset = 0
+        second-offset += timecode-parts.pop! * 1000
+        second-offset += timecode-parts.pop! * 1000 * 60
+        second-offset += timecode-parts.pop! * 1000 * 60 * 60
+        starttime = new Date(new Date(video-start-timestamp).getTime! + second-offset).toISOString!
         attributes ++= [{ startTime: starttime }]
       attributes = Object.assign ...attributes
       debate-section.push({ speech: [{_attr: attributes}].concat(speech)} )
