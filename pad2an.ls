@@ -8,7 +8,7 @@ export function pad2an (html)
   speech = []
   speakers = {}
   timestamp = ''
-  recording-start = new Date ($("p:contains('\u231B')").text! - /[\u231B]/ - /\s*$/ - /^\s*/)
+  recording-start = $("p:contains('\u231B')").text! - /[\u231B]/ - /\s*$/ - /^\s*/
 
   $('p, ul, h1, h2').each ->
     $(@).remove('.comment')
@@ -37,9 +37,9 @@ export function pad2an (html)
     t = @text! - /\s*$/
     if speech.length and speaker
       speakers[speaker] = true
-      speaker-starttime = new Date(recording-start.getTime! + (timestamp / ':')[0]*60000).toISOString!
       attributes = [{ by: "\##speaker" }]
-      if !!timestamp
+      if !!timestamp and !!recording-start
+        speaker-starttime = new Date(new Date(recording-start).getTime! + (timestamp / ':')[0]*60000).toISOString!
         attributes ++= [{ startTime: speaker-starttime }]
       attributes = Object.assign ...attributes
       debate-section.push({ speech: [{_attr: attributes}].concat(speech)} )
