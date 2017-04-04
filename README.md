@@ -20,3 +20,11 @@ Transcript format:
 **Heading 1** denotes sub-sections.
 
 To adjust or delete existing sections, just re-import an Hackpad with the same title text (a different URL is OK) and select **Replace them** in the import screen.
+
+## Usage
+
+```
+npm install -g livescript
+npm install
+lsc server.ls # or `heroku local`
+```

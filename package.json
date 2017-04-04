@@ -5,8 +5,6 @@
   "main": "lib/index.js",
   "scripts": {
     "watch": "npm run build -- --watch --source-maps inline",
-    "build": "babel src --out-dir lib --stage $npm_package_config_stage --optional runtime",
-    "prepublish": "NODE_ENV=production npm run build",
     "test": "mocha --require ./config/mocha-babel test/unit/*.js",
     "travis": "istanbul cover _mocha --report lcovonly -- --require ./config/mocha-babel test/unit/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "jscs": "jscs . -x"
