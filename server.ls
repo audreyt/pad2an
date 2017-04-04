@@ -1,5 +1,6 @@
 require! http
 index-html = require('fs').readFileSync('index.html' \utf8)
+port = process.env['PORT'] ? 8080
 http.createServer(({url}, res) ->
   #console.log url
   if url is '/'
@@ -25,4 +26,4 @@ http.createServer(({url}, res) ->
     res.writeHead 400, 'Content-Type': \text/plain
     res.end "Error: #err"
   )
-).listen 8080 -> console.log "http://127.0.0.1:8080/"
+).listen port, -> console.log "http://127.0.0.1:#port/"
