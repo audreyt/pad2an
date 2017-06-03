@@ -9,11 +9,11 @@ http.createServer(({url}, res) ->
     return
   url -= // ^ /? https? : / / //
   url.=replace // ^
-    ( (?: \w+\. )? hackpad (\.com | \.tw) | pad\.g0v\.link )
+    ( (?: \w+\. )? hackpad (?: \.com | \.tw) | pad\.g0v\.link )
     / (?: [^/]*- )? ( [^/]+ )
   $ //, "$1/ep/pad/static/$2"
   console.log "=> #url"
-  unless url is // ^ ( (?: \w+\. )?  hackpad (\.com | \.tw) | pad\.g0v\.link ) /ep/pad/static/ //
+  unless url is // ^ ( (?: \w+\. )?  hackpad (?: \.com | \.tw) | pad\.g0v\.link ) /ep/pad/static/ //
     res.writeHead 400, 'Content-Type': \text/plain
     res.end "URL must match hackpad.com/ep/pad/static/"
     return
