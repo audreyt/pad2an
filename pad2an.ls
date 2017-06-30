@@ -50,7 +50,7 @@ export function pad2an (html)
       debate-section.push({ speech: [{_attr: attributes}].concat(speech)} )
       speech := []
       speech-timecode := ''
-    if t is /^[(（].*[）)]$/
+    if t is /^[(（「].*[」）)]$/
       debate-section.push({ narrative: [{ p: [{ i: t }] }] })
       return
     else if t is /[\u00A0\u3000]{2}/
