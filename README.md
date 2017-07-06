@@ -1,10 +1,10 @@
-# Hackpad to SayIt importer
+# Hackpad.tw to SayIt importer
 
 1. Create a new instance at [mySociety SayIt](http://sayit.mysociety.org/instances/add), or use an existing instance.
 2. Click **Import Speeches** to show the `/import/akomantoso` screen.
 3. Enter the URL `http://pad.archive.tw/` followed by Hackpad source URL (with no spaces in-between) to import the section.
 
-For example, for the original Hackpad URL at `https://hackpad.com/PTD3vnvhMjv` the corresponding import URL is `http://pad.archive.tw/https://hackpad.com/PTD3vnvhMjv` — you can view it in browser to preview the XML structure (cache updated every minute).
+For example, for the original Hackpad.tw URL at `https://hackpad.com/Q2WfsTM4Az6` the corresponding import URL is `http://pad.archive.tw/https://hackpad.tw/Q2WfsTM4Az6` — you can view it in browser to preview the XML structure (cache updated every minute).
 
 ------
 
@@ -19,7 +19,7 @@ Transcript format:
 
 **Heading 1** denotes sub-sections.
 
-To adjust or delete existing sections, just re-import an Hackpad with the same title text (a different URL is OK) and select **Replace them** in the import screen.
+To adjust or delete existing sections, just re-import a pad with the same title text (a different URL is OK) and select **Replace them** in the import screen.
 
 ## Usage
 
